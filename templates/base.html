@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Activity Choice Portal - Choose between Industrial Visit and Technology Viva Presentation">
+    <title>{% block title %}EDU-CHOICE | Student Activity Portal{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home' %}">
+                <i class="bi bi-mortarboard-fill me-2" style="color: #6366f1;"></i>
+                EDU-CHOICE
+            </a>
+            <div class="d-flex align-items-center gap-3">
+                <a href="{% url 'submit_choice' %}" class="btn btn-sm btn-outline-primary rounded-pill d-none d-md-inline-flex align-items-center">
+                    <i class="bi bi-pencil-square me-1"></i> Submit Choice
+                </a>
+                <div class="theme-toggle" id="theme-toggle" title="Toggle theme" role="button" tabindex="0">
+                    <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-2">Developed with dedication by <strong>Ehtisham Ashraf</strong></p>
+            <div class="d-flex justify-content-center gap-3 mb-3 flex-wrap">
+                <a href="{% url 'home' %}" class="footer-link"><i class="bi bi-house me-1"></i>Home</a>
+                <a href="{% url 'submit_choice' %}" class="footer-link"><i class="bi bi-pencil-square me-1"></i>Submit</a>
+                <a href="https://wa.me/923010297558?text=Wow!%20Such%20an%20amazing%20website%20you%20made." target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                    <i class="bi bi-whatsapp me-1"></i> Contact Developer
+                </a>
+            </div>
+            <p class="mt-2 mb-0 text-muted small">&copy; 2026 EDU-CHOICE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

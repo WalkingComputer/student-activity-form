@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}EDU-CHOICE | Home{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="row justify-content-center text-center mb-5 animate-fade-in">
+        <div class="col-lg-8">
+            <div class="hero-badge mb-3">
+                <span class="badge-text"><i class="bi bi-stars me-1"></i> 5-Mark Activity Assessment</span>
+            </div>
+            <h1 class="display-5 fw-bold mb-3">Choose Your Preferred<br><span class="gradient-text">Student Activity</span></h1>
+            <p class="lead mb-4" style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                Choose your preferred activity for the 5-mark assessment in a simple and professional way.
+            </p>
+            <a href="{% url 'submit_choice' %}" class="btn btn-premium btn-lg px-5">
+                <i class="bi bi-rocket-takeoff me-2"></i> Get Started
+            </a>
+        </div>
+    </div>
+
+    <!-- Info Cards -->
+    <div class="row g-4 justify-content-center mb-5">
+        <div class="col-md-6 col-lg-5 animate-fade-in" style="animation-delay: 0.1s;">
+            <div class="glass-card p-4 h-100 info-card">
+                <div class="card-icon-wrapper mb-3">
+                    <i class="bi bi-building" style="font-size: 2rem; color: #6366f1;"></i>
+                </div>
+                <h3 class="fw-bold mb-2" style="font-size: 1.25rem;">Industrial Visit</h3>
+                <p class="mb-0" style="color: var(--text-muted); font-size: 0.95rem;">
+                    Visit a real-world industry to gain hands-on experience and observe professional work environments firsthand.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-5 animate-fade-in" style="animation-delay: 0.2s;">
+            <div class="glass-card p-4 h-100 info-card">
+                <div class="card-icon-wrapper mb-3">
+                    <i class="bi bi-mic" style="font-size: 2rem; color: #a855f7;"></i>
+                </div>
+                <h3 class="fw-bold mb-2" style="font-size: 1.25rem;">Technology Viva Presentation</h3>
+                <p class="mb-0" style="color: var(--text-muted); font-size: 0.95rem;">
+                    Present and defend your knowledge on a specific technology topic in a professional viva-style format.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="row justify-content-center text-center animate-fade-in" style="animation-delay: 0.3s;">
+        <div class="col-lg-8">
+            <h2 class="fw-bold mb-4">How It Works</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="step-number">1</div>
+                    <h5 class="fw-bold mt-2">Fill Your Info</h5>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Enter your name, student ID, and section.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-number">2</div>
+                    <h5 class="fw-bold mt-2">Choose Activity</h5>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Pick between Industrial Visit or Viva.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-number">3</div>
+                    <h5 class="fw-bold mt-2">Submit</h5>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Your choice is saved instantly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

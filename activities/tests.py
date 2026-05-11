@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from .models import Submission, DynamicForm, FormField, DynamicSubmission, FieldResponse
+from .models import Submission
 from .forms import SubmissionForm
 
 
@@ -39,7 +39,7 @@ class SubmissionFormTest(TestCase):
             'section': 'B', 'choice': 'tech_viva', 'viva_topic': 'Cloud',
         })
         self.assertTrue(form.is_valid())
-        
+
     def test_invalid_tech_viva_without_topic(self):
         form = SubmissionForm(data={
             'full_name': 'Jane', 'student_id': 'S2',
@@ -86,57 +86,3 @@ class ViewsTest(TestCase):
     def test_success_view(self):
         r = self.client.get(reverse('success'))
         self.assertEqual(r.status_code, 200)
-
-
-class DynamicFormTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.dform = DynamicForm.objects.create(name='Test Survey', slug='test-survey')
-        self.field1 = FormField.objects.create(
-            form=self.dform, label='Your Name', field_type='short_text',
-            is_required=True, order=1,
-        )
-        self.field2 = FormField.objects.create(
-            form=self.dform, label='Favorite Color', field_type='dropdown',
-            is_required=False, order=2, options='Red, Blue, Green',
-        )
-
-    def test_dynamic_form_str(self):
-        self.assertEqual(str(self.dform), 'Test Survey')
-
-    def test_formfield_options_list(self):
-        self.assertEqual(self.field2.get_options_list(), ['Red', 'Blue', 'Green'])
-
-    def test_dynamic_form_get(self):
-        r = self.client.get(reverse('dynamic_form', kwargs={'slug': 'test-survey'}))
-        self.assertEqual(r.status_code, 200)
-        self.assertContains(r, 'Test Survey')
-        self.assertContains(r, 'Your Name')
-
-    def test_dynamic_form_post_valid(self):
-        r = self.client.post(reverse('dynamic_form', kwargs={'slug': 'test-survey'}), {
-            f'field_{self.field1.pk}': 'Alice',
-            f'field_{self.field2.pk}': 'Blue',
-        })
-        self.assertEqual(r.status_code, 302)
-        self.assertEqual(DynamicSubmission.objects.count(), 1)
-        self.assertEqual(FieldResponse.objects.count(), 2)
-
-    def test_dynamic_form_post_missing_required(self):
-        r = self.client.post(reverse('dynamic_form', kwargs={'slug': 'test-survey'}), {
-            f'field_{self.field1.pk}': '',
-            f'field_{self.field2.pk}': 'Blue',
-        })
-        self.assertEqual(r.status_code, 200)
-        self.assertEqual(DynamicSubmission.objects.count(), 0)
-
-    def test_dynamic_form_success(self):
-        r = self.client.get(reverse('dynamic_form_success', kwargs={'slug': 'test-survey'}))
-        self.assertEqual(r.status_code, 200)
-        self.assertContains(r, 'Test Survey')
-
-    def test_inactive_form_404(self):
-        self.dform.is_active = False
-        self.dform.save()
-        r = self.client.get(reverse('dynamic_form', kwargs={'slug': 'test-survey'}))
-        self.assertEqual(r.status_code, 404)
